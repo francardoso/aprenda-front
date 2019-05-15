@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 ReactDOM.render(
-    "a",           
+    <h1>Oi</h1>,           
     document.getElementById('root')
 );
 
