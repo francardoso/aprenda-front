@@ -1,0 +1,11 @@
+{
+  "name": "aprenda-front",
+  "version": "1.0.0",
+  "description": "Aprenda app front",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fran Cardoso",
+  "license": "ISC"
+}
