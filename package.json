@@ -7,5 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Fran Cardoso",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/francardoso/aprenda-front.git"
+  },
+  "bugs": {
+    "url": "https://github.com/francardoso/aprenda-front/issues"
+  },
+  "homepage": "https://github.com/francardoso/aprenda-front#readme"
 }
