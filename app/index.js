@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import AppRoutes from './appRoutes'
 
 ReactDOM.render(
-    <h1>Oi</h1>,           
+    <AppRoutes/>,           
     document.getElementById('root')
 );
 
