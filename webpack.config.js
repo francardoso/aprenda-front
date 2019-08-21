@@ -1,7 +1,7 @@
 const path = require("path");
 const HWP = require("html-webpack-plugin");
 module.exports = {
-    entry: path.join(__dirname, "/app/index.js"),
+    entry: ['babel-polyfill', path.join(__dirname, "/app/index.js")],
     output: {
        filename: "build.js",
        path: path.join(__dirname, "dist/"),
