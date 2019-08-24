@@ -11,10 +11,10 @@ const LoginContainer = ()=>{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
+            credentials:'include',
             body: JSON.stringify(credentials)
         });
         const ans = await response.json();
-        console.log('foo ans', ans);
     }
     return (
         <LoginBox
