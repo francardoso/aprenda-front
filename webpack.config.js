@@ -1,10 +1,13 @@
 const path = require("path");
 const HWP = require("html-webpack-plugin");
 module.exports = {
-    entry: ['babel-polyfill', path.join(__dirname, "/app/index.js")],
+    entry: {
+        student: ['babel-polyfill', path.join(__dirname, '/app/private/student/index.js')],
+        professor: path.join(__dirname, '/app/private/professor/index.js')
+    }, 
     output: {
-       filename: "build.js",
-       path: path.join(__dirname, "dist/"),
+       filename: "[name]-build.js",
+       path: path.join(__dirname, "app/public/javascripts/"),
        publicPath: '/'
     },
     resolve: {
@@ -47,10 +50,10 @@ module.exports = {
             },
         ]
     },
-    plugins:[
-       new HWP(
-           {template: path.join(__dirname,"/app/index.html")}
-       )
-    ],
+    // plugins:[
+    //    new HWP(
+    //        {template: path.join(__dirname,"/app/index.html")}
+    //    )
+    // ],
    watch: true,
  }

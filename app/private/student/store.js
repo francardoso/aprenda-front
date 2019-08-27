@@ -1,5 +1,5 @@
 import {combineReducers, createStore} from 'redux';
-import loginReducer from './reducers/login';
+import loginReducer from '../commons/reducers/login';
 
 const reducer = combineReducers({
     loginReducer,
@@ -7,6 +7,7 @@ const reducer = combineReducers({
 
 const store = createStore(
     reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 export default store;

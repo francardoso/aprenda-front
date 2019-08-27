@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { SERVER_URL } from '../settings';
+import { SERVER_URL } from '../../../settings';
 // Redux actions
-import { setIsLogged } from './actions/login';
+import { setIsLogged } from '../commons/actions/login';
 
 //Views
-import Login from './views/Login';
-import Home from './views/Home';
-import NoMatch from './views/NoMatch';
+import Login from '../commons/views/Login';
+import Home from '../commons/views/Home';
+import NoMatch from '../commons/views/NoMatch';
 
 const mapDispatchToProps = dispatch =>({
     _setIsLogged: loginData => dispatch(setIsLogged(loginData)),
@@ -24,9 +24,7 @@ async function checkIfIsLogged(_setIsLogged){
         credentials:'include',
     });
     const ans = await response.json();
-    if(ans.isLogged){
-        _setIsLogged(ans);
-    }
+    _setIsLogged(ans);
 }
 
 const AppRoutes = ({isLogged, _setIsLogged}) =>{

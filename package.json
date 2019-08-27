@@ -4,7 +4,7 @@
   "description": "Aprenda app front",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development",
+    "build-dev": "webpack --mode development",
     "build": "webpack --mode production"
   },
   "author": "Fran Cardoso",
@@ -23,9 +23,14 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
+    "connect-mongo": "^3.0.0",
     "css-loader": "^2.1.1",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "mongoose": "^5.6.11",
+    "pug": "^2.0.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
