@@ -3,13 +3,18 @@ import {connect} from 'react-redux';
 import LoginBox from '../presentational/LoginBox';
 import {SERVER_URL} from '../../../../settings';
 // Redux actions
-import { setIsLogged } from '../actions/login';
+import { setIsLogged, setLoginError } from '../actions/login';
+
+const mapStateToProps = state =>({
+    loginError: state.loginReducer.error
+});
 
 const mapDispatchToProps = dispatch =>({
     _setIsLogged: loginData => dispatch(setIsLogged(loginData)),
+    _setLoginError: error => dispatch(setLoginError(error)),
 });
 
-const LoginContainer = ({history, _setIsLogged})=>{
+const LoginContainer = ({history, _setIsLogged, _setLoginError, loginError})=>{
     const [loginStep, setStep] = useState("login");
     async function loginAttempt(credentials){
         const response = await fetch(`${SERVER_URL}/login`, {
@@ -28,6 +33,11 @@ const LoginContainer = ({history, _setIsLogged})=>{
                 idUser: ans
             });
             history.push('/home');
+        }else{
+            _setLoginError({
+                show: true,
+                message: 'Senha incorreta'
+            });
         }
     }
     async function checkLogin(login){
@@ -46,6 +56,15 @@ const LoginContainer = ({history, _setIsLogged})=>{
         const ans = await response.json();
         if(!ans.error){
             setStep('password');
+            _setLoginError({
+                show: false,
+                message: ''
+            });
+        }else{
+            _setLoginError({
+                show: true,
+                message: 'Login não encontrado'
+            });
         }
     }
     return (
@@ -53,9 +72,10 @@ const LoginContainer = ({history, _setIsLogged})=>{
             loginAttempt={loginAttempt}
             loginStep={loginStep}
             checkLogin={checkLogin}
-            // loginError={loginError}
+            loginError={loginError}
+            hideError={()=>_setLoginError({show:false,message:''})}
         />
     )
 };
 
-export default connect(null,mapDispatchToProps)(LoginContainer);
+export default connect(mapStateToProps,mapDispatchToProps)(LoginContainer);

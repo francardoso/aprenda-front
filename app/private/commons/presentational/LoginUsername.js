@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
 
-const LoginUsername = ({setEmail, onSubmit}) =>{
+import Button from './Button';
+import Input from './Input';
+
+
+const LoginUsername = ({email, setEmail, onSubmit}) =>{
     return (
         <>
-            <input 
+            <Input 
                 type='text'
                 placeholder='login'
                 onChange={(event)=>setEmail(event.target.value)}
+                onKeyDown={(event)=>event.keyCode===13 && onSubmit()}
             />
-            <button 
-                onClick={onSubmit}>
-                Próximo
-            </button>
+            <Button onClick={onSubmit} enable={email !== ''} label='Próximo'/>
         </>
     )
 };

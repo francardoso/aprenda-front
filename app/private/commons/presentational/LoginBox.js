@@ -1,26 +1,56 @@
 import React, {useState} from 'react';
 import LoginUsername from './LoginUsername';
 import LoginPasswordAndRole from './LoginPasswordAndRole';
+import AlertBox from './AlertBox';
+import styled from 'styled-components';
 
-const LoginBox = ({loginAttempt, loginStep, checkLogin})=>{
+const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+`;
+const Box = styled.div`
+    background-color: #75CAEB;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+`;
+const Title = styled.h1`
+    
+`;
+const LoginBox = ({loginAttempt, loginStep, checkLogin, loginError,hideError})=>{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     return (
-        <div>
-            <h1>Bem vindo ao aprenda</h1>
-            {
-                loginStep === 'login' ? 
-                <LoginUsername
-                    setEmail={setEmail}
-                    onSubmit={()=>checkLogin(email)}
-                />
-                :
-                <LoginPasswordAndRole
-                    setPassword={setPassword}
-                    onSubmit={()=>loginAttempt({email, password})}
-                />
-            }
-        </div>
+        <Container>
+            <Box>
+                <Title>Bem vindo ao aprenda</Title>
+                {
+                    loginStep === 'login' ? 
+                    <LoginUsername
+                        setEmail={setEmail}
+                        onSubmit={()=>checkLogin(email)}
+                        email={email}
+                    />
+                    :
+                    <LoginPasswordAndRole
+                        setPassword={setPassword}
+                        onSubmit={()=>loginAttempt({email, password})}
+                        password={password}
+                    />
+                }
+                {
+                    loginError.show &&
+                    <AlertBox 
+                        message={loginError.message}
+                        hideBox={hideError}/>
+                }
+            </Box>
+        </Container>
     )
 };
 

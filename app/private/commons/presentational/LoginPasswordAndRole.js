@@ -1,17 +1,18 @@
-import React,{useState} from 'react';
+import React from 'react';
 
-const LoginPasswordAndRole = ({onSubmit, setPassword}) =>{
+import Button from './Button';
+import Input from './Input';
+
+const LoginPasswordAndRole = ({password,onSubmit, setPassword}) =>{
     return (
         <>
-            <input 
+            <Input 
                 type='password' 
                 placeholder='senha'
                 onChange={(event)=>setPassword(event.target.value)}
+                onKeyDown={(event)=>event.keyCode===13 && onSubmit()}
             />
-            <button 
-                onClick={onSubmit}>
-                Faça Login
-            </button>
+            <Button onClick={onSubmit} enable={password !== ''} label='Entrar'/>
         </>
     )
 };
