@@ -1,13 +1,13 @@
 import React from 'react';
-import LessonsContainer from '../containers/LessonsContainer';
 import Layout from '../../commons/presentational/Layout';
-import Header from '../presentional/Header';
+import Header from '../presentational/Header';
+import LessonsContainer from '../containers/LessonsContainer';
 
-const Lessons = () =>{
+const Lessons = ({history}) =>{
     return (
         <Layout
             header={<Header/>}>
-            <LessonsContainer/>
+            <LessonsContainer history={history}/>
         </Layout>
     )
 };

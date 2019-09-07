@@ -32,7 +32,7 @@ const LoginContainer = ({history, _setIsLogged, _setLoginError, loginError})=>{
                 isLogged: true,
                 idUser: ans
             });
-            history.push('/home');
+            history.push('/lessons');
         }else{
             _setLoginError({
                 show: true,

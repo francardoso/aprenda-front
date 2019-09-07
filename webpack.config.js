@@ -3,7 +3,7 @@ const HWP = require("html-webpack-plugin");
 module.exports = {
     entry: {
         student: ['babel-polyfill', path.join(__dirname, '/app/private/student/index.js')],
-        professor: path.join(__dirname, '/app/private/professor/index.js')
+        professor: ['babel-polyfill', path.join(__dirname, '/app/private/professor/index.js')]
     }, 
     output: {
        filename: "[name]-build.js",
