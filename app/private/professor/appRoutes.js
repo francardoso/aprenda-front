@@ -9,6 +9,7 @@ import { setIsLogged } from '../commons/actions/login';
 import Lessons from './views/Lessons';
 import Index from './views/Index';
 import NoMatch from '../commons/views/NoMatch';
+import NewLesson from './views/NewLesson';
 
 const mapDispatchToProps = dispatch =>({
     _setIsLogged: loginData => dispatch(setIsLogged(loginData)),
@@ -39,6 +40,7 @@ const AppRoutes = ({isLogged, _setIsLogged}) =>{
             <Switch>
                 <Route exact path="/professor" component={Index}/>
                 <PrivateRoute exact path="/professor/lessons" isLogged={isLogged} component={Lessons}/>
+                <PrivateRoute exact path="/professor/lessons/add" isLogged={isLogged} component={NewLesson}/>
                 <Route component={NoMatch}/>
             </Switch>
         </Router>

@@ -13,7 +13,7 @@ const HeaderStyled = styled.nav`
 const Header = () =>{
     return(
         <HeaderStyled>
-            <Link to={'#'} style={{color:'#FFFFFF'}}>Atividades</Link>
+            <Link to={'/professor/lessons'} style={{color:'#FFFFFF'}}>Atividades</Link>
         </HeaderStyled>
     )
 }
