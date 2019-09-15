@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const LessonsList = ({lessons}) =>{
     return (
@@ -6,9 +7,11 @@ const LessonsList = ({lessons}) =>{
             {
                 lessons.map((lesson, index) =>{
                     return(
-                        <div key={index}>
-                            {lesson._id}
-                        </div>
+                        <Link to={`/professor/lessons/${lesson._id}`} key={index}>
+                            <div>
+                                {lesson.title}
+                            </div>
+                        </Link>
                     )
                 })
             }

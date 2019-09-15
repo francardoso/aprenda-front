@@ -33,7 +33,6 @@ const LessonContainer = ({
                 questions
             })
         });
-        console.log({title, questions});
     }
     return (
         <LessonForm
