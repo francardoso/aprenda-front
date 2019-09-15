@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
-import { changeLessonTitle } from '../actions/lesson';
+import { changeLessonTitle, cleanLesson } from '../actions/lesson';
 
 import LessonForm from '../presentational/LessonForm';
 
@@ -13,12 +13,14 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = dispatch =>({
     _changeLessonTitle: title => dispatch(changeLessonTitle(title)),
+    _cleanLesson: () => dispatch(cleanLesson())
 });
 
 const LessonContainer = ({
     title,
     questions,
-    _changeLessonTitle
+    _changeLessonTitle,
+    _cleanLesson
 }) =>{
     async function addLesson(){
         const response = await fetch(`${SERVER_URL}/addLesson`, {
@@ -34,6 +36,11 @@ const LessonContainer = ({
             })
         });
     }
+    useEffect(()=>{
+        return ()=>{
+            _cleanLesson();   
+        }
+    },[]);
     return (
         <LessonForm
             title={title}

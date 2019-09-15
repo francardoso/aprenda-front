@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StyledLayout = styled.div`
     display: flex;
+    flex-direction: column;
 `;
 
 const Layout = ({children, header}) =>{

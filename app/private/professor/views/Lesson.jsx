@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
@@ -6,6 +6,7 @@ import { setLessons } from '../actions/lessons';
 import { setContentToShow } from '../actions/subMenu';
 
 import LessonContainer from '../containers/LessonContainer';
+import LessonStudentsContainer from '../containers/LessonStudentsContainer';
 
 import Header from '../presentational/Header';
 import Layout from '../../commons/presentational/Layout';
@@ -32,6 +33,7 @@ const Lesson = ({
     _setContentToShow,
     showContent
 }) =>{
+    const [students, setStudents] = useState([]);
     async function fetchLesson(idLesson){
         const url = new URL(`${SERVER_URL}/getLesson`);
         url.search = new URLSearchParams({
@@ -47,14 +49,15 @@ const Lesson = ({
         const ans = await response.json();
         return ans;
     }
-    async function getLesson(idLesson){
+    function getLesson(idLesson){
         let lesson = lessons.find(el=>el._id === idLesson);
-        if(!lesson){
-            lesson = await fetchLesson(idLesson);
-            if(!lesson.error){
-                _setLessons([...lessons, lesson]);
-            }
-        }
+        fetchLesson(idLesson)
+            .then(ans=>{
+                if(!lesson && !ans.error){
+                    _setLessons([...lessons, {title: ans.title, questions: ans.questions}]);
+                    setStudents(ans.students);
+                }
+            })
     }
     function getContent(){
         switch(showContent){
@@ -62,7 +65,9 @@ const Lesson = ({
                 return <LessonContainer/>
             }
             case 'students':{
-                return <h1>studantes</h1>
+                return <LessonStudentsContainer
+                        students={students}
+                    />
             }
             default:{
                 return <LessonContainer/>

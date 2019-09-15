@@ -3,12 +3,14 @@ import loginReducer from '../commons/reducers/login';
 import lessonsReducer from './reducers/lessons';
 import lessonReducer from './reducers/lesson';
 import subMenuReducer from './reducers/subMenu';
+import usersReducer from './reducers/users';
 
 const reducer = combineReducers({
     loginReducer,
     lessonsReducer,
     lessonReducer,
-    subMenuReducer
+    subMenuReducer,
+    usersReducer
 });
 
 const store = createStore(

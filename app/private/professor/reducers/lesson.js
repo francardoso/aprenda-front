@@ -4,6 +4,7 @@ import {
     CHANGE_QUESTION_TITLE,
     ADD_OPTION,
     CHANGE_OPTION_TITLE,
+    CLEAN_LESSON
 } from '../actions/lesson';
 
 const initialState = {
@@ -88,6 +89,12 @@ const LessonReducer = (state=initialState, action) => {
                     newQuestion,
                     ...state.questions.slice(questionIndex +1, state.questions.length)
                 ]
+            }
+        }
+        case CLEAN_LESSON:{
+            return {
+                ...state,
+                ...initialState
             }
         }
         default:{
