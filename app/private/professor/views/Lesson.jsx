@@ -7,8 +7,8 @@ import { setContentToShow } from '../actions/subMenu';
 
 import LessonContainer from '../containers/LessonContainer';
 import LessonStudentsContainer from '../containers/LessonStudentsContainer';
+import HeaderContainer from '../containers/HeaderContainer';
 
-import Header from '../presentational/Header';
 import Layout from '../../commons/presentational/Layout';
 import SubMenu from '../presentational/SubMenu';
 
@@ -44,7 +44,8 @@ const Lesson = ({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials:'include',
         });
         const ans = await response.json();
         return ans;
@@ -89,7 +90,7 @@ const Lesson = ({
     const options = ['lesson','students'];
     return(
         <Layout
-        header={<Header/>}>
+            header={<HeaderContainer/>}>
             <SubMenu 
                 options={options}
                 handleMenuSelect={(item)=>_setContentToShow(item)}

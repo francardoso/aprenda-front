@@ -35,7 +35,8 @@ const LessonStudentsContainer = ({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials:'include',
         });
         const ans = await response.json();
         if(!ans.error){
@@ -76,7 +77,8 @@ const LessonStudentsContainer = ({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials:'include',
         });
         const ans = await response.json();
         if(!ans.error){
@@ -95,7 +97,8 @@ const LessonStudentsContainer = ({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials:'include',
         });
         const ans = await response.json();
         if(!ans.error){
