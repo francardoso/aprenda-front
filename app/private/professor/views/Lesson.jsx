@@ -51,13 +51,17 @@ const Lesson = ({
     }
     function getLesson(idLesson){
         let lesson = lessons.find(el=>el._id === idLesson);
-        fetchLesson(idLesson)
-            .then(ans=>{
-                if(!lesson && !ans.error){
-                    _setLessons([...lessons, {title: ans.title, questions: ans.questions}]);
-                    setStudents(ans.students);
-                }
-            })
+        if(lesson){
+            setStudents(lesson.students);
+        }else{
+            fetchLesson(idLesson)
+                .then(ans=>{
+                    if(!ans.error){
+                        _setLessons([...lessons, {title: ans.title, questions: ans.questions}]);
+                        setStudents(ans.students);
+                    }
+                })
+        }
     }
     function getContent(){
         switch(showContent){
@@ -66,7 +70,9 @@ const Lesson = ({
             }
             case 'students':{
                 return <LessonStudentsContainer
+                        setStudents={setStudents}
                         students={students}
+                        idLesson={id}
                     />
             }
             default:{

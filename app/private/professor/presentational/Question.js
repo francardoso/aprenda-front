@@ -19,8 +19,8 @@ const Question = ({
     return(
         <Form>
             <div className='form-group'>
-                <Input type='radio' label='Única escolha'/>
-                <Input type='radio' label='Múltipla escolha'/>
+                <Input type='radio' label='Única escolha' index={index}/>
+                <Input type='radio' label='Múltipla escolha' index={index+'second'}/>
             </div>
             <Input 
                 type='text'
