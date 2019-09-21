@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
+import SandwichMenu from '../../commons/presentational/SandwichMenu';
+
 const Nav = styled.nav`
     display: flex;
     justify-content: center;
@@ -10,10 +12,16 @@ const Nav = styled.nav`
     height: 60px;
 `;
 
-const Header = () =>{
+const Header = ({
+    logout
+}) =>{
+    console.log('logout', logout);
     return (
         <Nav>
            <Link to={'#'} style={{color:'#FFFFFF'}}>Atividades</Link>
+           <SandwichMenu>
+                <li onClick={()=>logout()}>SAIR</li>
+            </SandwichMenu>
         </Nav>
     )
 };

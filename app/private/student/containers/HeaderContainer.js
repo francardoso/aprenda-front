@@ -1,11 +1,9 @@
 import React from 'react';
 import { SERVER_URL } from '../../../../settings';
 
-import Header from '../presentational/Header';
+import Header from '../presentional/Header';
 
-const HeaderContainer = ({
-    history
-}) =>{
+const HeaderContainer = () =>{
     async function logout(){
         const response = await fetch(`${SERVER_URL}/logout`,{
             method: 'POST',
@@ -17,8 +15,7 @@ const HeaderContainer = ({
         });
         const ans = await response.json();
         if(!ans.error){
-            // location.reload();
-            window.location.replace('/');
+            window.location.reload();
         }
     }
     return (
