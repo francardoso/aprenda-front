@@ -17,7 +17,6 @@ const HeaderContainer = ({
         });
         const ans = await response.json();
         if(!ans.error){
-            // location.reload();
             window.location.replace('/');
         }
     }

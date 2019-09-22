@@ -1,6 +1,6 @@
 import {combineReducers, createStore} from 'redux';
 import loginReducer from '../commons/reducers/login';
-import lessonsReducer from './reducers/lessons';
+import lessonsReducer from '../commons/reducers/lessons';
 import lessonReducer from './reducers/lesson';
 import subMenuReducer from './reducers/subMenu';
 import usersReducer from './reducers/users';

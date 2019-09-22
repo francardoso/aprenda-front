@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
 //actions
-import { setLessons } from '../actions/lessons';
+import { setLessons } from '../../commons/actions/lessons';
 
 //presentationals
 import LessonsList from '../presentational/LessonsList';

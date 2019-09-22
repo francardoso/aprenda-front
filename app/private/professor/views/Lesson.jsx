@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
-import { setLessons } from '../actions/lessons';
+import { setLessons } from '../../commons/actions/lessons';
 import { setContentToShow } from '../actions/subMenu';
 
 import LessonContainer from '../containers/LessonContainer';

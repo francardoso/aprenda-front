@@ -35,18 +35,18 @@ const CheckMark = styled.span`
     height: 1rem;
     background-color: #fff;
     border: #adb5bd solid 1px;
+    border-radius: ${props=>props.type === 'radio' ? '50%' : 0};
     &:after{
         content: "";
         position: absolute;
         display: none;	
         left: 4px;
-        top: 1px;
+        top: ${props=>props.type === 'radio' ? '4px' : '1px'};
         width: 5px;
-        height: 10px;
+        height: ${props=>props.type === 'radio' ? '5px' : '10px'};
         border: solid white;
-        border-width: 0 3px 3px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
+        border-width: ${props=>props.type === 'radio' ? 'initial' :'0 3px 3px 0'};
+        border-radius: ${props=>props.type === 'radio' ? '50%' : 0};
         transform: rotate(45deg);
     }
 `;  
@@ -100,17 +100,18 @@ const Input = ({
             inputElement =
             <div className="form-group">
                 <div className="custom-control custom-radio">
-                    <input 
-                        type="radio" 
-                        id={`customRadio${index}`} 
-                        // name={`customRadio${index}`} 
-                        className="custom-control-input" 
-                        checked={checked}
-                    />
-                    <label 
-                        className="custom-control-label" 
-                        htmlFor={`customRadio${index}`}>{label}
-                    </label>
+                    <CheckboxLabel>
+                        <input 
+                            type="radio"
+                            className="custom-control-input" 
+                            checked={checked}
+                            onChange={onChange}
+                        />
+                        <CheckMark 
+                            className='checkmark'
+                            type={'radio'}
+                        />
+                    </CheckboxLabel>
                 </div>
             </div>
             break;

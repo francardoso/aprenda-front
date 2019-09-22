@@ -15,10 +15,9 @@ const Nav = styled.nav`
 const Header = ({
     logout
 }) =>{
-    console.log('logout', logout);
     return (
         <Nav>
-           <Link to={'#'} style={{color:'#FFFFFF'}}>Atividades</Link>
+           <Link to={'/lessons'} style={{color:'#FFFFFF'}}>Atividades</Link>
            <SandwichMenu>
                 <li onClick={()=>logout()}>SAIR</li>
             </SandwichMenu>
