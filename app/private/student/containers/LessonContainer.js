@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
+import { cleanLesson } from '../actions/lesson';
+
 import Lesson from '../presentional/Lesson';
 
 const mapStateToProps = state =>({
@@ -9,12 +11,13 @@ const mapStateToProps = state =>({
 });
 
 const mapDispatchToProps = dispatch =>({
-    
+    _cleanLesson: () => dispatch(cleanLesson()),
 });
 
 const LessonContainer = ({
     idLesson,
-    lessons
+    lessons,
+    _cleanLesson
 })=>{
     const [lesson, setLesson] = useState({});
 
@@ -45,10 +48,14 @@ const LessonContainer = ({
 
     useEffect(()=>{
         getLesson(idLesson);
+        return () =>{
+            _cleanLesson();
+        }
     },[]);
-
     return (
-        <Lesson lesson={lesson}/>
+        <Lesson 
+            lesson={lesson}
+        />
     )
 }
 

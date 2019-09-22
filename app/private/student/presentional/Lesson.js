@@ -1,5 +1,8 @@
 import React from 'react';
+
 import QuestionContainer from '../containers/QuestionContainer';
+
+import Button from '../../commons/presentational/Button';
 
 const Lesson = ({
     lesson
@@ -13,7 +16,12 @@ const Lesson = ({
                     {
                         lesson.questions.map((question,index)=>{
                             return (
-                                <QuestionContainer key={index} question={question}/>
+                                <QuestionContainer 
+                                    key={index} 
+                                    question={question}
+                                    index={index}
+                                    idLesson={lesson._id}
+                                />
                             )
                         })
                     }

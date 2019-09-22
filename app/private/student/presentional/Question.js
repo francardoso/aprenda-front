@@ -1,11 +1,14 @@
 import React from 'react';
 
 import Option from './Option';
+import Button from '../../commons/presentational/Button';
 
 const Question = ({
     question,
     onSelectOption, 
-    selectedOption
+    selectedOption,
+    checkAnswer,
+    unlockActionBtn
 })=>{
     return(
         <>
@@ -22,6 +25,10 @@ const Question = ({
                         />
                     )
                 })
+            }
+            {
+                unlockActionBtn &&
+                <Button onClick={checkAnswer} label='enviar'/>
             }
         </>
     )
