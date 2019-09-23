@@ -11,7 +11,8 @@ const mapDispatchToProps = dispatch =>({
 });
 
 const mapStateToProps = state =>({
-    questions: state.lessonReducer.questions
+    questions: state.lessonReducer.questions,
+    idStudent: state.loginReducer.idUser
 });
 
 const QuestionContainer = ({
@@ -19,7 +20,8 @@ const QuestionContainer = ({
     index,
     questions,
     _selectOption,
-    idLesson
+    idLesson,
+    idStudent
 })=>{
     const [selectedOption, setSelectedOption] = useState(null);
     const unlockActionBtn = ((questions[index] || {}).answer || []).length > 0;
@@ -33,6 +35,7 @@ const QuestionContainer = ({
             method: 'POST',
             body:JSON.stringify({
                 idLesson,
+                idStudent,
                 questionIndex: index,
                 answer: questionAnswer.answer || []
             }),

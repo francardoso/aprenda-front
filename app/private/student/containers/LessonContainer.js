@@ -8,6 +8,7 @@ import Lesson from '../presentional/Lesson';
 
 const mapStateToProps = state =>({
     lessons: state.lessonsReducer.lessons,
+    idStudent: state.loginReducer.idUser,
 });
 
 const mapDispatchToProps = dispatch =>({
@@ -17,7 +18,8 @@ const mapDispatchToProps = dispatch =>({
 const LessonContainer = ({
     idLesson,
     lessons,
-    _cleanLesson
+    _cleanLesson,
+    idStudent
 })=>{
     const [lesson, setLesson] = useState({});
 
@@ -46,8 +48,28 @@ const LessonContainer = ({
         return ans;
     }
 
+    async function fetchAnswer(){
+        const url = new URL(`${SERVER_URL}/getStudentAnswer`);
+        url.search = new URLSearchParams({
+            idLesson,
+            idStudent,
+        });
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            credentials:'include',
+        });
+        const ans = await response.json();
+        console.log('foo ans', ans);
+        return ans;
+    }
+
     useEffect(()=>{
         getLesson(idLesson);
+        fetchAnswer();
         return () =>{
             _cleanLesson();
         }
