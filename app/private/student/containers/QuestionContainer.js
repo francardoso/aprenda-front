@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
-import { selectOption } from '../actions/lesson';
+import { selectOption, setAnswers } from '../actions/lesson';
 
 import Question from '../presentional/Question'
 
 const mapDispatchToProps = dispatch =>({
     _selectOption: (questionIndex, answer) => dispatch(selectOption(questionIndex,answer)),
+    _setAnswers: ans => dispatch(setAnswers(ans)),
 });
 
 const mapStateToProps = state =>({
     questions: state.lessonReducer.questions,
-    idStudent: state.loginReducer.idUser
+    answers: state.lessonReducer.answers,
+    idStudent: state.loginReducer.idUser,
 });
 
 const QuestionContainer = ({
@@ -20,14 +22,24 @@ const QuestionContainer = ({
     index,
     questions,
     _selectOption,
+    _setAnswers,
     idLesson,
-    idStudent
+    idStudent,
+    answers
 })=>{
-    const [selectedOption, setSelectedOption] = useState(null);
-    const unlockActionBtn = ((questions[index] || {}).answer || []).length > 0;
+    useEffect(()=>{
+        if(answers.length){
+            selecteAnswers();
+        }
+    },[answers]);
+    // const unlockActionBtn = ((questions[index] || {}).answer || []).length > 0;
+    const [unlockActionBtn, setUnlockActionBtn] = useState(false);
+    const selectedOption = ((questions[index] || {}).answer || [])[0];
     function onSelectOption(optionIndex){
-        setSelectedOption(optionIndex);
-        _selectOption(index,[optionIndex]);
+        _selectOption(index, [optionIndex]);
+        if(!unlockActionBtn){
+            setUnlockActionBtn(true);
+        }
     }
     async function checkAnswer(){
         const questionAnswer = questions[index];
@@ -46,6 +58,22 @@ const QuestionContainer = ({
             credentials:'include',
         });
         const ans = await response.json();
+        if(ans && !ans.error){
+            const ansOfThisQuestion = ans.find((question=>question.index === index));
+            const { studentAnswers, questionAnswers } =  ansOfThisQuestion;
+            _setAnswers(ans);
+            setUnlockActionBtn(false);
+            console.log(ansOfThisQuestion);
+            alert(`você acertou ${compareAnswer(studentAnswers, questionAnswers)}`);
+        }
+    }
+    function compareAnswer(userAns, realAns){
+        return userAns.sort().join(',') === realAns.sort().join(',');
+    }
+    function selecteAnswers(){
+        answers.map(question =>{
+            _selectOption(index, question.studentAnswers);
+        })
     }
     return(
         <Question 
@@ -54,6 +82,7 @@ const QuestionContainer = ({
             selectedOption={selectedOption}
             checkAnswer={checkAnswer}
             unlockActionBtn={unlockActionBtn}
+            disabled={answers.length > 0}
         />
     )
 };

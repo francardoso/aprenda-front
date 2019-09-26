@@ -1,10 +1,12 @@
 import {
     CLEAN_LESSON,
-    SELECT_OPTION
+    SELECT_OPTION,
+    SET_ANSWERS
 } from '../actions/lesson';
 
 const initialState = {
     questions:[],
+    answers:[],
 }
 
 function lessonReducer(state=initialState, action){
@@ -41,6 +43,12 @@ function lessonReducer(state=initialState, action){
                         }
                     ]
                 }
+            }
+        }
+        case SET_ANSWERS:{
+            return {
+                ...state,
+                answers: action.payload
             }
         }
         default:{

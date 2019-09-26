@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
-import { cleanLesson } from '../actions/lesson';
+import { cleanLesson, setAnswers } from '../actions/lesson';
 
 import Lesson from '../presentional/Lesson';
 
@@ -13,12 +13,14 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = dispatch =>({
     _cleanLesson: () => dispatch(cleanLesson()),
+    _setAnswers: answers => dispatch(setAnswers(answers)),
 });
 
 const LessonContainer = ({
     idLesson,
     lessons,
     _cleanLesson,
+    _setAnswers,
     idStudent
 })=>{
     const [lesson, setLesson] = useState({});
@@ -63,7 +65,9 @@ const LessonContainer = ({
             credentials:'include',
         });
         const ans = await response.json();
-        console.log('foo ans', ans);
+        if(ans){
+            _setAnswers(ans);
+        }
         return ans;
     }
 

@@ -8,7 +8,8 @@ const Question = ({
     onSelectOption, 
     selectedOption,
     checkAnswer,
-    unlockActionBtn
+    unlockActionBtn,
+    disabled
 })=>{
     return(
         <>
@@ -22,6 +23,7 @@ const Question = ({
                             option={option}
                             type={question.type}
                             onSelectOption={()=>onSelectOption(index)}
+                            disabled={disabled}
                         />
                     )
                 })

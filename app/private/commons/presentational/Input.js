@@ -58,6 +58,7 @@ const Input = ({
     onChange, 
     onKeyDown,
     checked,
+    disabled = false,
     index
 }) =>{
     let inputElement;
@@ -106,6 +107,7 @@ const Input = ({
                             className="custom-control-input" 
                             checked={checked}
                             onChange={onChange}
+                            disabled={disabled}
                         />
                         <CheckMark 
                             className='checkmark'

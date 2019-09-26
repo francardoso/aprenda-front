@@ -6,7 +6,8 @@ const Option = ({
     option,
     type,
     onSelectOption,
-    checked
+    checked,
+    disabled,
 })=>{
     return(
         <div>
@@ -15,6 +16,7 @@ const Option = ({
                 type={type === 'single' ? 'radio' : 'checkbox'}
                 onChange={onSelectOption}
                 checked={checked}
+                disabled={disabled}
             />
         </div>
 
