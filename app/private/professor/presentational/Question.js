@@ -14,13 +14,27 @@ const Form = styled.div`
 
 const Question = ({
     setTitle,
-    index
+    setType,
+    index,
+    type,
 }) =>{
     return(
         <Form>
             <div className='form-group'>
-                <Input type='radio' label='Única escolha' index={index}/>
-                <Input type='radio' label='Múltipla escolha' index={index+'second'}/>
+                <Input 
+                    type='radio' 
+                    onChange={()=>setType('single')}
+                    checked={type==='single'}
+                />
+                <p>Única escolha</p>
+            </div>
+            <div className='form-group'>
+                <Input 
+                    type='radio'
+                    onChange={()=>setType('multiple')}
+                    checked={type==='multiple'}
+                />
+                <p>Múltipla escolha</p>
             </div>
             <Input 
                 type='text'

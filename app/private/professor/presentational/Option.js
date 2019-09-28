@@ -8,7 +8,10 @@ const Form = styled.div`
 import Input from '../../commons/presentational/Input';
 
 const Option = ({
-    setTitle
+    setTitle,
+    questionType,
+    setOptionSelected,
+    option,
 }) =>{
     return (
         <Form>
@@ -16,6 +19,11 @@ const Option = ({
                 type='text' 
                 placeholder='opção'
                 onChange={(event)=>setTitle(event.target.value)}
+            />
+            <Input
+                type={questionType === 'single' ? 'radio' : 'checkbox'}
+                onChange={()=>setOptionSelected()}
+                checked={option.selected}
             />
         </Form>
     )

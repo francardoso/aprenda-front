@@ -26,9 +26,9 @@ const OptionsContainer = ({
             {
                 options.map((option, index)=>{
                     return <OptionContainer
-                        key={index}
-                        questionIndex={questionIndex}
-                        index={index}
+                            key={index}
+                            questionIndex={questionIndex}
+                            index={index}
                         />
                 })
             }
