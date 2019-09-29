@@ -127,6 +127,7 @@ const Input = ({
                             className="custom-control-input"
                             checked={checked}
                             onChange={onChange}
+                            disabled={disabled}
                         />
                         <CheckMark className='checkmark'/>
                     </CheckboxLabel>

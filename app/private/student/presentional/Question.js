@@ -6,7 +6,7 @@ import Button from '../../commons/presentational/Button';
 const Question = ({
     question,
     onSelectOption, 
-    selectedOption,
+    selectedOptions,
     checkAnswer,
     unlockActionBtn,
     disabled
@@ -19,7 +19,7 @@ const Question = ({
                     return (
                         <Option 
                             key={index}
-                            checked={selectedOption === index}
+                            checked={selectedOptions.indexOf(index) !== -1}
                             option={option}
                             type={question.type}
                             onSelectOption={()=>onSelectOption(index)}

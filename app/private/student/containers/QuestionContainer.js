@@ -28,28 +28,43 @@ const QuestionContainer = ({
     answers
 })=>{
     useEffect(()=>{
-        if(answers.length){
-            selecteAnswers();
+        const ansOfThisQuestionIndex = answers.findIndex(ans=>ans.index === index);
+        if(ansOfThisQuestionIndex !== -1){
+            selectAnswers(ansOfThisQuestionIndex);
         }
     },[answers]);
-    // const unlockActionBtn = ((questions[index] || {}).answer || []).length > 0;
-    const [unlockActionBtn, setUnlockActionBtn] = useState(false);
-    const selectedOption = ((questions[index] || {}).answer || [])[0];
+    const [unlockActionBtn, setUnlockActionBtn] = useState(false); 
+    const selectedOptions = (questions.find(quest=>quest.index === index)|| {}).answer || []; 
+    const disabled = answers.findIndex(ans=>ans.index === index) !== -1;
+    
     function onSelectOption(optionIndex){
-        _selectOption(index, [optionIndex]);
+        if(question.type === 'single'){
+            _selectOption(index, [optionIndex]);
+        }else{
+            const indexOfOptionOnAnsArray = selectedOptions.indexOf(optionIndex);
+            const existsOnAnsArray = indexOfOptionOnAnsArray !== -1;
+            if(!existsOnAnsArray){
+                _selectOption(index, [...selectedOptions, optionIndex]);
+            }else{
+                _selectOption(index, [
+                    ...selectedOptions.slice(0, indexOfOptionOnAnsArray),
+                    ...selectedOptions.slice(indexOfOptionOnAnsArray +1, selectedOptions.length),
+                ]);
+            }
+        }
         if(!unlockActionBtn){
             setUnlockActionBtn(true);
         }
     }
     async function checkAnswer(){
-        const questionAnswer = questions[index];
+        const questionAnswer = questions.find(quest=>quest.index === index);
         const response = await fetch(`${SERVER_URL}/checkLessonQuestionAnswer`, {
             method: 'POST',
             body:JSON.stringify({
                 idLesson,
                 idStudent,
                 questionIndex: index,
-                answer: questionAnswer.answer || []
+                answer: (questionAnswer || {}).answer || []
             }),
             headers: {
                 'Accept': 'application/json',
@@ -63,26 +78,23 @@ const QuestionContainer = ({
             const { studentAnswers, questionAnswers } =  ansOfThisQuestion;
             _setAnswers(ans);
             setUnlockActionBtn(false);
-            console.log(ansOfThisQuestion);
             alert(`você acertou ${compareAnswer(studentAnswers, questionAnswers)}`);
         }
     }
     function compareAnswer(userAns, realAns){
         return userAns.sort().join(',') === realAns.sort().join(',');
     }
-    function selecteAnswers(){
-        answers.map(question =>{
-            _selectOption(index, question.studentAnswers);
-        })
+    function selectAnswers(idx){
+        _selectOption(index, answers[idx].studentAnswers);
     }
     return(
         <Question 
             question={question}
             onSelectOption={onSelectOption}
-            selectedOption={selectedOption}
+            selectedOptions={selectedOptions}
             checkAnswer={checkAnswer}
             unlockActionBtn={unlockActionBtn}
-            disabled={answers.length > 0}
+            disabled={disabled}
         />
     )
 };
