@@ -18,7 +18,8 @@ const mapDispatchToProps = dispatch =>({
 const LessonsContainer = ({
     lessons,
     idStudent,
-    _setLessons
+    _setLessons,
+    history
 }) =>{
     useEffect(()=>{
         if(lessons.length === 0){
@@ -43,9 +44,13 @@ const LessonsContainer = ({
             _setLessons(ans);
         }
     }
+    function goToLesson(idLesson){
+        history.push(`/lessons/${idLesson}`);
+    }
     return (
         <LessonsList
             lessons={lessons}
+            goToLesson={goToLesson}
         />
     )
 };

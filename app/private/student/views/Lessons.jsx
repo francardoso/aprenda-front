@@ -4,11 +4,15 @@ import Layout from '../../commons/presentational/Layout';
 
 import HeaderContainer from '../containers/HeaderContainer';
 
-const Lessons = () =>{
+const Lessons = ({
+    history
+}) =>{
     return (
         <Layout
             header={<HeaderContainer/>}>
-            <LessonsContainer/>
+            <LessonsContainer
+                history={history}
+            />
         </Layout>
     )
 };

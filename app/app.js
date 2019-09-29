@@ -8,7 +8,7 @@ const settings = require('../settings');
 app.set('views', settings.TEMPLATES_PATH); // specify the views directory
 app.set('view engine', 'pug');
 app.use(express.static(settings.STATIC_FILES_PATH)); // sets the folder that servers the static files
-mongoose.connect(settings.DB_URL,{useNewUrlParser:true});
+mongoose.connect(settings.DB_URL,{useNewUrlParser:true, useUnifiedTopology:true});
 app.set('trust proxy', 1);
 app.use(session({
     secret: settings.SESSION_SECRET,
