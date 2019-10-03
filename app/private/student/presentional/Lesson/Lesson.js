@@ -1,18 +1,22 @@
 import React from 'react';
 
-import QuestionContainer from '../containers/QuestionContainer';
+import QuestionContainer from '../../containers/QuestionContainer';
 
-import Button from '../../commons/presentational/Button';
+// styles
+import { 
+    LessonContainer,
+    LessonTitle,
+} from './styles';
 
 const Lesson = ({
     lesson
 })=>{
     return (
-        <>
+        <LessonContainer>
             {
                 Object.keys(lesson).length > 0 ?
                 <>
-                    <p>{lesson.title}</p>
+                    <LessonTitle>{lesson.title}</LessonTitle>
                     {
                         lesson.questions.map((question,index)=>{
                             return (
@@ -29,7 +33,7 @@ const Lesson = ({
                 :
                 <p>carregando</p>
             }
-        </>
+        </LessonContainer>
     )
 };
 

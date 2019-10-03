@@ -1,7 +1,12 @@
 import React from 'react';
 
-import Option from './Option';
-import Button from '../../commons/presentational/Button';
+import Option from '../Option';
+import Button from '../../../commons/presentational/Button';
+
+//styles
+import {
+    QuestionTitle,
+} from './styles';
 
 const Question = ({
     question,
@@ -13,7 +18,7 @@ const Question = ({
 })=>{
     return(
         <>
-            <p>{question.title}</p>
+            <QuestionTitle>{question.title}</QuestionTitle>
             {
                 question.options.map((option,index)=>{
                     return (

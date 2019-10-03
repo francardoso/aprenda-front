@@ -59,7 +59,8 @@ const Input = ({
     onKeyDown,
     checked,
     disabled = false,
-    index
+    index,
+    style
 }) =>{
     let inputElement;
     switch (type) {
@@ -99,7 +100,7 @@ const Input = ({
             break;
         case 'radio':
             inputElement =
-            <div className="form-group">
+            <div className="form-group" style={{...style}}>
                 <div className="custom-control custom-radio">
                     <CheckboxLabel>
                         <input 
@@ -119,7 +120,7 @@ const Input = ({
             break;
         case 'checkbox':
             inputElement =
-            <div className="form-group">
+            <div className="form-group" style={{...style}}>
                 <div className="custom-control custom-checkbox">
                     <CheckboxLabel>
                         <input 
