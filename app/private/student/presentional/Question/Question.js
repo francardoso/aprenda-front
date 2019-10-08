@@ -5,6 +5,7 @@ import Button from '../../../commons/presentational/Button';
 
 //styles
 import {
+    QuestionContainer,
     QuestionTitle,
 } from './styles';
 
@@ -17,7 +18,7 @@ const Question = ({
     disabled
 })=>{
     return(
-        <>
+        <QuestionContainer>
             <QuestionTitle>{question.title}</QuestionTitle>
             {
                 question.options.map((option,index)=>{
@@ -37,7 +38,7 @@ const Question = ({
                 unlockActionBtn &&
                 <Button onClick={checkAnswer} label='enviar'/>
             }
-        </>
+        </QuestionContainer>
     )
 };
 

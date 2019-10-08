@@ -20,8 +20,8 @@ const Lesson = ({
                     {
                         lesson.questions.map((question,index)=>{
                             return (
-                                <QuestionContainer 
-                                    key={index} 
+                                <QuestionContainer
+                                    key={index}  
                                     question={question}
                                     index={index}
                                     idLesson={lesson._id}
