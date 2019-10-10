@@ -15,7 +15,8 @@ const Question = ({
     selectedOptions,
     checkAnswer,
     unlockActionBtn,
-    disabled
+    disabled,
+    questionAnswers
 })=>{
     return(
         <QuestionContainer>
@@ -30,6 +31,7 @@ const Question = ({
                             type={question.type}
                             onSelectOption={()=>onSelectOption(index)}
                             disabled={disabled}
+                            isCorrect={questionAnswers.length === 0 ? undefined : questionAnswers.indexOf(index) !== -1}
                         />
                     )
                 })

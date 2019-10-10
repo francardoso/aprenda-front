@@ -13,7 +13,9 @@ const Option = ({
     onSelectOption,
     checked,
     disabled,
+    isCorrect,
 })=>{
+    console.log('foo is correct', disabled);
     return(
         <OptionContainer>
             <Input 
@@ -29,7 +31,7 @@ const Option = ({
                     padding: '5px 0',
                 }}
             />
-            <P>{option.title}</P>
+            <P isCorrect={isCorrect}>{option.title}</P>
         </OptionContainer>
 
     )

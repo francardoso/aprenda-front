@@ -11,4 +11,5 @@ export const OptionContainer = styled.div`
 export const P = styled.p`
     margin: 0;
     padding: 10px;
+    color: ${props => props.isCorrect === true ? "green" : props.isCorrect === false ? "red" : ""}
 `;

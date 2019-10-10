@@ -18,8 +18,9 @@ const QuestionContainer = ({
     const dispatch = useDispatch();
     const [unlockActionBtn, setUnlockActionBtn] = useState(false);
     const selectedOptions = (questions.find(quest => quest.index === index) || {}).answer || [];
-    const disabled = answers.findIndex(ans => ans.index === index) !== -1;
-    
+    const answerIndex = answers.findIndex(ans => ans.index === index);
+    const disabled = answerIndex !== -1;
+
     useEffect(() => {
         const ansOfThisQuestionIndex = answers.findIndex(ans => ans.index === index);
         if (ansOfThisQuestionIndex !== -1) {
@@ -92,6 +93,7 @@ const QuestionContainer = ({
             checkAnswer={checkAnswer}
             unlockActionBtn={unlockActionBtn}
             disabled={disabled}
+            questionAnswers={answers[answerIndex] ? answers[answerIndex].questionAnswers : []}
         />
     )
 };
