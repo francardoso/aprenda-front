@@ -3,11 +3,13 @@ import {combineReducers, createStore} from 'redux';
 import loginReducer from '../commons/reducers/login';
 import lessonsReducer from '../commons/reducers/lessons';
 import lessonReducer from './reducers/lesson';
+import modalReducer from './reducers/modal';
 
 const reducer = combineReducers({
     loginReducer,
     lessonsReducer,
-    lessonReducer
+    lessonReducer,
+    modalReducer,
 });
 
 const store = createStore(

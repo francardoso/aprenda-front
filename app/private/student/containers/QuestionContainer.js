@@ -1,66 +1,55 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
 import { selectOption, setAnswers } from '../actions/lesson';
+import { showModal, hideModal } from '../actions/modal';
 
-import Question from '../presentional/Question'
-
-const mapDispatchToProps = dispatch =>({
-    _selectOption: (questionIndex, answer) => dispatch(selectOption(questionIndex,answer)),
-    _setAnswers: ans => dispatch(setAnswers(ans)),
-});
-
-const mapStateToProps = state =>({
-    questions: state.lessonReducer.questions,
-    answers: state.lessonReducer.answers,
-    idStudent: state.loginReducer.idUser,
-});
+import Question from '../presentional/Question';
+import FeedbackQuestion from '../presentional/FeedbackQuestion';
 
 const QuestionContainer = ({
     question,
     index,
-    questions,
-    _selectOption,
-    _setAnswers,
     idLesson,
-    idStudent,
-    answers
-})=>{
-    useEffect(()=>{
-        const ansOfThisQuestionIndex = answers.findIndex(ans=>ans.index === index);
-        if(ansOfThisQuestionIndex !== -1){
+}) => {
+    const { questions, answers } = useSelector(state => state.lessonReducer);
+    const { idUser: idStudent } = useSelector(state => state.loginReducer);
+    const dispatch = useDispatch();
+    const [unlockActionBtn, setUnlockActionBtn] = useState(false);
+    const selectedOptions = (questions.find(quest => quest.index === index) || {}).answer || [];
+    const disabled = answers.findIndex(ans => ans.index === index) !== -1;
+    
+    useEffect(() => {
+        const ansOfThisQuestionIndex = answers.findIndex(ans => ans.index === index);
+        if (ansOfThisQuestionIndex !== -1) {
             selectAnswers(ansOfThisQuestionIndex);
         }
-    },[answers]);
-    const [unlockActionBtn, setUnlockActionBtn] = useState(false); 
-    const selectedOptions = (questions.find(quest=>quest.index === index)|| {}).answer || []; 
-    const disabled = answers.findIndex(ans=>ans.index === index) !== -1;
-    
-    function onSelectOption(optionIndex){
-        if(question.type === 'single'){
-            _selectOption(index, [optionIndex]);
-        }else{
+    }, [answers]);
+    function onSelectOption(optionIndex) {
+        if (question.type === 'single') {
+            dispatch(selectOption(index, [optionIndex]));
+        } else {
             const indexOfOptionOnAnsArray = selectedOptions.indexOf(optionIndex);
             const existsOnAnsArray = indexOfOptionOnAnsArray !== -1;
-            if(!existsOnAnsArray){
-                _selectOption(index, [...selectedOptions, optionIndex]);
-            }else{
-                _selectOption(index, [
+            if (!existsOnAnsArray) {
+                dispatch(selectOption(index, [...selectedOptions, optionIndex]));
+            } else {
+                dispatch(selectOption(index, [
                     ...selectedOptions.slice(0, indexOfOptionOnAnsArray),
-                    ...selectedOptions.slice(indexOfOptionOnAnsArray +1, selectedOptions.length),
-                ]);
+                    ...selectedOptions.slice(indexOfOptionOnAnsArray + 1, selectedOptions.length),
+                ]));
             }
         }
-        if(!unlockActionBtn){
+        if (!unlockActionBtn) {
             setUnlockActionBtn(true);
         }
     }
-    async function checkAnswer(){
-        const questionAnswer = questions.find(quest=>quest.index === index);
+    async function checkAnswer() {
+        const questionAnswer = questions.find(quest => quest.index === index);
         const response = await fetch(`${SERVER_URL}/checkLessonQuestionAnswer`, {
             method: 'POST',
-            body:JSON.stringify({
+            body: JSON.stringify({
                 idLesson,
                 idStudent,
                 questionIndex: index,
@@ -70,25 +59,33 @@ const QuestionContainer = ({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            credentials:'include',
+            credentials: 'include',
         });
         const ans = await response.json();
-        if(ans && !ans.error){
-            const ansOfThisQuestion = ans.find((question=>question.index === index));
-            const { studentAnswers, questionAnswers } =  ansOfThisQuestion;
-            _setAnswers(ans);
+        if (ans && !ans.error) {
+            const ansOfThisQuestion = ans.find((question => question.index === index));
+            const { studentAnswers, questionAnswers } = ansOfThisQuestion;
+            dispatch(setAnswers(ans));
             setUnlockActionBtn(false);
-            alert(`você acertou ${compareAnswer(studentAnswers, questionAnswers)}`);
+            dispatch(
+                showModal(
+                    <FeedbackQuestion 
+                        isCorrect={compareAnswer(studentAnswers, questionAnswers)}
+                        closeModal={() => dispatch(hideModal())}
+                    />
+                )
+            );
         }
     }
-    function compareAnswer(userAns, realAns){
+    function compareAnswer(userAns, realAns) {
+        console.log({userAns, realAns});
         return userAns.sort().join(',') === realAns.sort().join(',');
     }
-    function selectAnswers(idx){
-        _selectOption(index, answers[idx].studentAnswers);
+    function selectAnswers(idx) {
+        dispatch(selectOption(index, answers[idx].studentAnswers));
     }
-    return(
-        <Question 
+    return (
+        <Question
             question={question}
             onSelectOption={onSelectOption}
             selectedOptions={selectedOptions}
@@ -99,4 +96,4 @@ const QuestionContainer = ({
     )
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(QuestionContainer);
+export default QuestionContainer;
