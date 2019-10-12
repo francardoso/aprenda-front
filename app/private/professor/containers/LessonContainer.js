@@ -17,11 +17,19 @@ const mapDispatchToProps = dispatch =>({
 });
 
 const LessonContainer = ({
+    idLesson,
     title,
     questions,
     _changeLessonTitle,
     _cleanLesson
 }) =>{
+    function onSave(){
+        if(idLesson){
+            editLesson();
+        }else{
+            addLesson();
+        }
+    }
     async function addLesson(){
         const response = await fetch(`${SERVER_URL}/addLesson`, {
             method: 'POST',
@@ -36,6 +44,21 @@ const LessonContainer = ({
             })
         });
     }
+    async function editLesson(){
+        const response = await fetch(`${SERVER_URL}/editLesson`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            credentials:'include',
+            body: JSON.stringify({
+                idLesson,
+                title,
+                questions
+            })
+        });
+    }
     useEffect(()=>{
         return ()=>{
             _cleanLesson();   
@@ -45,7 +68,7 @@ const LessonContainer = ({
         <LessonForm
             title={title}
             setTitle={_changeLessonTitle}
-            addLesson={addLesson}
+            addLesson={onSave}
         />
     )
 }

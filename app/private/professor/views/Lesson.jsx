@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
 import { setLessons } from '../../commons/actions/lessons';
+import { setLesson, cleanLesson } from '../actions/lesson';
 import { setContentToShow } from '../actions/subMenu';
 
 import LessonContainer from '../containers/LessonContainer';
@@ -12,28 +13,18 @@ import HeaderContainer from '../containers/HeaderContainer';
 import Layout from '../../commons/presentational/Layout';
 import SubMenu from '../presentational/SubMenu';
 
-const mapStateToProps = state => ({
-    lessons: state.lessonsReducer.lessons,
-    showContent: state.subMenuReducer.showContent,
-});
-
-const mapDispatchToProps = dispatch =>({
-    _setLessons: lessons => dispatch(setLessons(lessons)),
-    _setContentToShow: content => dispatch(setContentToShow(content)),
-})
-
 const Lesson = ({
     match:{
         params:{
             id
         }
     },
-    lessons,
-    _setLessons,
-    _setContentToShow,
-    showContent
 }) =>{
     const [students, setStudents] = useState([]);
+    const dispatch = useDispatch();
+    const { lessons } = useSelector(state => state.lessonsReducer);
+    const { showContent } = useSelector(state => state.subMenuReducer);
+    const { title, questions } = useSelector(state=> state.lessonReducer);
     async function fetchLesson(idLesson){
         const url = new URL(`${SERVER_URL}/getLesson`);
         url.search = new URLSearchParams({
@@ -51,14 +42,16 @@ const Lesson = ({
         return ans;
     }
     function getLesson(idLesson){
-        let lesson = lessons.find(el=>el._id === idLesson);
+        const lesson = lessons.find(el=>el._id === idLesson);
         if(lesson){
             setStudents(lesson.students);
+            dispatch(setLesson(lesson));
         }else{
             fetchLesson(idLesson)
                 .then(ans=>{
                     if(!ans.error){
-                        _setLessons([...lessons, {title: ans.title, questions: ans.questions}]);
+                        dispatch(setLessons([...lessons, {title: ans.title, questions: ans.questions}]));
+                        dispatch(setLesson({title: ans.title, questions: ans.questions}));
                         setStudents(ans.students);
                     }
                 })
@@ -67,7 +60,13 @@ const Lesson = ({
     function getContent(){
         switch(showContent){
             case 'lesson':{
-                return <LessonContainer/>
+                return (
+                    <LessonContainer 
+                        idLesson={id}
+                        title={title}
+                        questions={questions}
+                    />
+                )
             }
             case 'students':{
                 return <LessonStudentsContainer
@@ -77,14 +76,20 @@ const Lesson = ({
                     />
             }
             default:{
-                return <LessonContainer/>
+                return (
+                    <LessonContainer 
+                        idLesson={id}
+                        title={title}
+                        questions={questions}
+                    />
+                )
             }
         }
     }
     useEffect(()=>{
         getLesson(id);
         return ()=>{
-            _setContentToShow(null);
+            dispatch(setContentToShow(null));
         }
     },[]);
     const options = ['lesson','students'];
@@ -93,11 +98,11 @@ const Lesson = ({
             header={<HeaderContainer/>}>
             <SubMenu 
                 options={options}
-                handleMenuSelect={(item)=>_setContentToShow(item)}
+                handleMenuSelect={(item)=>dispatch(setContentToShow(item))}
             />
             {getContent()}
         </Layout>
     )
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Lesson);
+export default Lesson;

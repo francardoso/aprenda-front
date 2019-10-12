@@ -59,8 +59,8 @@ const Input = ({
     onKeyDown,
     checked,
     disabled = false,
-    index,
-    style
+    style,
+    value,
 }) =>{
     let inputElement;
     switch (type) {
@@ -78,6 +78,7 @@ const Input = ({
                     placeholder={placeholder}
                     onChange={onChange}
                     onKeyDown={onKeyDown}
+                    value={value}
                 />
             </div>
             break;

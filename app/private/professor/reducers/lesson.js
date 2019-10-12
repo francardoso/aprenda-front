@@ -6,7 +6,8 @@ import {
     ADD_OPTION,
     CHANGE_OPTION_TITLE,
     SET_OPTION_SELECTED,
-    CLEAN_LESSON
+    CLEAN_LESSON,
+    SET_LESSON,
 } from '../actions/lesson';
 
 const initialState = {
@@ -145,6 +146,13 @@ const LessonReducer = (state=initialState, action) => {
             return {
                 ...state,
                 ...initialState
+            }
+        }
+        case SET_LESSON: {
+            return {
+                ...state,
+                title: action.payload.title || '',
+                questions: action.payload.questions || [],
             }
         }
         default:{

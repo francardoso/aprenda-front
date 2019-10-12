@@ -24,6 +24,7 @@ const LessonForm = ({
                 type='text'
                 placeholder='Título'
                 onChange={(event) => setTitle(event.target.value)}
+                value={title}
             />
             <QuestionsContainer/>
             <Button 

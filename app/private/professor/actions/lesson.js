@@ -6,6 +6,7 @@ export const ADD_OPTION = 'ADD_OPTION';
 export const CHANGE_OPTION_TITLE = 'CHANGE_OPTION_TITLE';
 export const SET_OPTION_SELECTED = 'SET_OPTION_SELECTED'; 
 export const CLEAN_LESSON = 'CLEAN_LESSON';
+export const SET_LESSON = 'SET_LESSON';
 
 export const changeLessonTitle = title =>({
     type: CHANGE_LESSON_TITLE,
@@ -43,4 +44,9 @@ export const setOptionSelected = data=>({
 
 export const cleanLesson = () =>({
     type: CLEAN_LESSON
+});
+
+export const setLesson = (lesson) =>({
+    type: SET_LESSON,
+    payload: lesson,
 });
