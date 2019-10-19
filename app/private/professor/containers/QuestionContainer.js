@@ -39,6 +39,7 @@ const QuestionContainer = ({
             setType={setType}
             index={index}
             type={question.type}
+            title={question.title}
         />
     )
 };

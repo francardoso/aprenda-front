@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Input from '../../commons/presentational/Input';
-import Button from '../../commons/presentational/Button';
-import QuestionsContainer from '../containers/QuestionsContainer';
+import Input from '../../../commons/presentational/Input';
+import Button from '../../../commons/presentational/Button';
+import QuestionsContainer from '../../containers/QuestionsContainer';
 
 const Form = styled.div`
     display: flex;

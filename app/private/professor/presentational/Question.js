@@ -15,6 +15,7 @@ const Form = styled.div`
 const Question = ({
     setTitle,
     setType,
+    title,
     index,
     type,
 }) =>{
@@ -40,6 +41,7 @@ const Question = ({
                 type='text'
                 placeholder='Pergunta'
                 onChange={(event)=>setTitle(event.target.value)}
+                value={title}
             />
             <OptionsContainer
                 questionIndex={index}

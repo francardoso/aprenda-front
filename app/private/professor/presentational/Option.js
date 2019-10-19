@@ -19,6 +19,7 @@ const Option = ({
                 type='text' 
                 placeholder='opção'
                 onChange={(event)=>setTitle(event.target.value)}
+                value={option.title}
             />
             <Input
                 type={questionType === 'single' ? 'radio' : 'checkbox'}
