@@ -61,12 +61,13 @@ const Input = ({
     disabled = false,
     style,
     value,
+    ...props,
 }) =>{
     let inputElement;
     switch (type) {
         case "text":
             inputElement = 
-            <div className="form-group">
+            <div className="form-group" style={{...style}}>
                 {
                     label &&
                     <label htmlFor="exampleInputEmail1">{label}</label>

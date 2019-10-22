@@ -28,7 +28,10 @@ const QuestionsContainer = ({
                     />
                 })
             }
-            <Button label='Nova questão' onClick={_addQuestion}/>
+            <Button
+                label='Nova questão'
+                onClick={_addQuestion}
+            />
         </>
     )
 };

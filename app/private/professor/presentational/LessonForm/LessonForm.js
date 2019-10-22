@@ -1,17 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+
 import Input from '../../../commons/presentational/Input';
 import Button from '../../../commons/presentational/Button';
 import QuestionsContainer from '../../containers/QuestionsContainer';
 
-const Form = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    border: 1px solid red;
-`
+import Form from './styles';
 
 const LessonForm = ({
     title,
@@ -30,6 +23,7 @@ const LessonForm = ({
             <Button 
                 onClick={addLesson}
                 label='Salvar lição'
+                customClass='saveLessonBtn btn-success'
             />
         </Form>
     )

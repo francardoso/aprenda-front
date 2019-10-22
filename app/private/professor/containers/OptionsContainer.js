@@ -32,7 +32,10 @@ const OptionsContainer = ({
                         />
                 })
             }
-            <Button label='Nova opção' onClick={()=>_addOption(questionIndex)}/>
+            <Button 
+                onClick={()=>_addOption(questionIndex)}
+                customClass="addOptionBtn fas fa-plus-circle"
+            />
         </>
     )
 };
