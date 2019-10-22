@@ -7,7 +7,6 @@ const SubMenu = ({
     handleMenuSelect,
     optionSelected
 }) => {
-    console.log('foo option selected', optionSelected);
     return(
         <Ul className='breadcrumb'>
         {
