@@ -92,13 +92,23 @@ const Lesson = ({
             dispatch(setContentToShow(null));
         }
     },[]);
-    const options = ['lesson','students'];
+    const options = [
+        {
+            accessor: 'lesson',
+            name: 'Atividade',
+        },
+        {
+            accessor: 'students',
+            name: 'Alunos',
+        },
+    ];
     return(
         <Layout
             header={<HeaderContainer/>}>
             <SubMenu 
                 options={options}
                 handleMenuSelect={(item)=>dispatch(setContentToShow(item))}
+                optionSelected={showContent || 'lesson'}
             />
             {getContent()}
         </Layout>
