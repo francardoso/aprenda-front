@@ -6,4 +6,7 @@ export default styled.nav`
     align-items: center;
     background-color: #158CBA;
     height: 60px;
+    > a{
+        margin: 0 10px;
+    }
 `;

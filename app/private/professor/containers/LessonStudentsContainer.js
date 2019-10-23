@@ -120,6 +120,7 @@ const LessonStudentsContainer = ({
     }
     return (
         <>
+            <h3 style={{marginLeft:'10px'}}>Alunos Matriculados</h3>
             <UsersList
                 users={idsToUsersInformations(students)}
                 onSelect={onSelectEnrolledStudent}
@@ -128,6 +129,7 @@ const LessonStudentsContainer = ({
                 onAction={unenrollStudents}
             />
 
+            <h3 style={{marginLeft:'10px'}}>Alunos não matriculados</h3>
             <UsersList
                 users={users.filter(user=>students.indexOf(user._id) === -1)}
                 onSelect={onSelectUnsignedStudent}
