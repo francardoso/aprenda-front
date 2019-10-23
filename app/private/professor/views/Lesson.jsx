@@ -90,6 +90,7 @@ const Lesson = ({
         getLesson(id);
         return ()=>{
             dispatch(setContentToShow(null));
+            dispatch(cleanLesson());
         }
     },[]);
     const options = [

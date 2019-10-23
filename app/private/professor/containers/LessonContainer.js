@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
-import { changeLessonTitle, cleanLesson } from '../actions/lesson';
+import { changeLessonTitle } from '../actions/lesson';
 
 import LessonForm from '../presentational/LessonForm';
 
@@ -13,15 +13,13 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = dispatch =>({
     _changeLessonTitle: title => dispatch(changeLessonTitle(title)),
-    _cleanLesson: () => dispatch(cleanLesson())
 });
 
 const LessonContainer = ({
     idLesson,
     title,
     questions,
-    _changeLessonTitle,
-    _cleanLesson
+    _changeLessonTitle
 }) =>{
     function onSave(){
         if(idLesson){
@@ -59,11 +57,6 @@ const LessonContainer = ({
             })
         });
     }
-    useEffect(()=>{
-        return ()=>{
-            _cleanLesson();   
-        }
-    },[]);
     return (
         <LessonForm
             title={title}
