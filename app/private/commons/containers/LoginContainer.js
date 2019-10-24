@@ -1,20 +1,13 @@
 import React,{useState} from 'react';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import LoginBox from '../presentational/LoginBox';
 import {SERVER_URL} from '../../../../settings';
 // Redux actions
-import { setIsLogged, setLoginError } from '../actions/login';
+import { setIsLogged } from '../actions/login';
+import { addNotification } from '../actions/notifications';
 
-const mapStateToProps = state =>({
-    loginError: state.loginReducer.error
-});
-
-const mapDispatchToProps = dispatch =>({
-    _setIsLogged: loginData => dispatch(setIsLogged(loginData)),
-    _setLoginError: error => dispatch(setLoginError(error)),
-});
-
-const LoginContainer = ({history, _setIsLogged, _setLoginError, loginError})=>{
+const LoginContainer = ({history})=>{
+    const dispatch = useDispatch();
     const [loginStep, setStep] = useState("login");
     async function loginAttempt(credentials){
         const response = await fetch(`${SERVER_URL}/login`, {
@@ -28,16 +21,15 @@ const LoginContainer = ({history, _setIsLogged, _setLoginError, loginError})=>{
         });
         const ans = await response.json();
         if(!ans.error){
-            _setIsLogged({
-                isLogged: true,
-                idUser: ans
-            });
+            dispatch(
+                setIsLogged({
+                    isLogged: true,
+                    idUser: ans
+                })
+            );
             history.push('/lessons');
         }else{
-            _setLoginError({
-                show: true,
-                message: 'Senha incorreta'
-            });
+            dispatch(addNotification('Senha incorreta'));
         }
     }
     async function checkLogin(login){
@@ -56,15 +48,8 @@ const LoginContainer = ({history, _setIsLogged, _setLoginError, loginError})=>{
         const ans = await response.json();
         if(!ans.error){
             setStep('password');
-            _setLoginError({
-                show: false,
-                message: ''
-            });
         }else{
-            _setLoginError({
-                show: true,
-                message: 'Login não encontrado'
-            });
+            dispatch(addNotification('Login não encontrado'));
         }
     }
     return (
@@ -72,10 +57,8 @@ const LoginContainer = ({history, _setIsLogged, _setLoginError, loginError})=>{
             loginAttempt={loginAttempt}
             loginStep={loginStep}
             checkLogin={checkLogin}
-            loginError={loginError}
-            hideError={()=>_setLoginError({show:false,message:''})}
         />
     )
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(LoginContainer);
+export default LoginContainer;

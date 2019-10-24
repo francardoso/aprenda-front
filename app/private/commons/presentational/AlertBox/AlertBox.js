@@ -1,12 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
 
-const Box = styled.div`
-    position: absolute;
-    right:10px;
-    bottom:0;
-`;
-const AlertBox = ({message, hideBox}) =>{
+import Box from './styles';
+
+const AlertBox = ({
+    message,
+    hideBox,
+    id
+}) =>{
+    useEffect(()=>{
+        setTimeout(() => {
+            hideBox(id);
+        }, 4000);
+    }, []);
     return (
         <Box className='alert alert-dismissible alert-primary'>
             <button 

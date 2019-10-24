@@ -22,7 +22,7 @@ const Box = styled.div`
 const Title = styled.h1`
     
 `;
-const LoginBox = ({loginAttempt, loginStep, checkLogin, loginError,hideError})=>{
+const LoginBox = ({loginAttempt, loginStep, checkLogin})=>{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     return (
@@ -42,12 +42,6 @@ const LoginBox = ({loginAttempt, loginStep, checkLogin, loginError,hideError})=>
                         onSubmit={()=>loginAttempt({email, password})}
                         password={password}
                     />
-                }
-                {
-                    loginError.show &&
-                    <AlertBox 
-                        message={loginError.message}
-                        hideBox={hideError}/>
                 }
             </Box>
         </Container>
