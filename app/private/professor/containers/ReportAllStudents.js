@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PieChart, Pie, Cell,Tooltip } from 'recharts';
+import { PieChart, Pie, Cell,Tooltip, ResponsiveContainer } from 'recharts';
 
 import { SERVER_URL } from '../../../../settings';
 
@@ -46,28 +46,30 @@ const ReportAllStudents = ({ }) => {
         }
     }
     return (
-        <PieChart width={730} height={250}>
-            <Pie 
-                data={totalUsers}
-                dataKey="value"
-                nameKey="name"
-                outerRadius={50}
-                label
-                startAngle={45}
-                endAngle={405}
-            >
-                {
-                    totalUsers.map((user, index) => {
-                    return (
-                        <Cell
-                            key={`cell-${index}`}
-                            fill={COLORS[index % COLORS.length]}
-                            />
-                        )})
-                }
-            </Pie>
-            <Tooltip />
-        </PieChart>
+        <ResponsiveContainer height='100%' width='100%'>
+            <PieChart>
+                <Pie 
+                    data={totalUsers}
+                    dataKey="value"
+                    nameKey="name"
+                    outerRadius={50}
+                    label
+                    startAngle={45}
+                    endAngle={405}
+                >
+                    {
+                        totalUsers.map((user, index) => {
+                        return (
+                            <Cell
+                                key={`cell-${index}`}
+                                fill={COLORS[index % COLORS.length]}
+                                />
+                            )})
+                    }
+                </Pie>
+                <Tooltip />
+            </PieChart>
+        </ResponsiveContainer>
     )
 };
 

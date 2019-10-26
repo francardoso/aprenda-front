@@ -3,7 +3,7 @@ import React from 'react';
 import Ul from './styles';
 
 const SubMenu = ({
-    options,
+    options = [],
     handleMenuSelect,
     optionSelected
 }) => {

@@ -1,15 +1,15 @@
-import  React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SERVER_URL } from '../../../../settings';
-import { PieChart, Pie, Tooltip , ResponsiveContainer} from 'recharts';
+import { PieChart, Pie, Tooltip, ResponsiveContainer } from 'recharts';
 
-const ReportAllLessons = ({}) =>{
-    const [totalLessons, setTotalLessons] = useState(0);
+const ReportAllAnswers = () => {
+    const [totalAnswers, setTotalAnswers] = useState(0);
     useEffect(()=>{
-        getAllLessonsReport();
+        getAllAnswers();
     },[]);
 
-    async function getAllLessonsReport(){
-        const response = await fetch(`${SERVER_URL}/getAllLessons`, {
+    async function getAllAnswers(){
+        const response = await fetch(`${SERVER_URL}/getAnswersTotal`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -19,26 +19,26 @@ const ReportAllLessons = ({}) =>{
         });
         const ans = await response.json();
         if(!ans.error){
-            setTotalLessons(ans.length);
+            setTotalAnswers(ans);
         }
     }
     return (
         <ResponsiveContainer height='100%' width='100%'>
-            <PieChart>
+            <PieChart >
                 <Pie 
-                    data={[{name: 'Total de atividades', value: totalLessons}]}
+                    data={[{name: 'Total de respostas', value: totalAnswers}]}
                     dataKey="value"
                     nameKey="name"
                     cx="50%"
                     cy="50%"
                     outerRadius={50}
-                    fill="#8884d8"
+                    fill="#FFBB28"
                     label
                 />
                 <Tooltip />
             </PieChart>
         </ResponsiveContainer>
-    );
-}
+    )
+};
 
-export default ReportAllLessons;
+export default ReportAllAnswers;
