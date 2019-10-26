@@ -1,9 +1,13 @@
 import  React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 import { PieChart, Pie, Tooltip , ResponsiveContainer} from 'recharts';
 
+import { setLessons } from '../../commons/actions/lessons';
+
 const ReportAllLessons = ({}) =>{
     const [totalLessons, setTotalLessons] = useState(0);
+    const dispatch = useDispatch();
     useEffect(()=>{
         getAllLessonsReport();
     },[]);
@@ -20,6 +24,7 @@ const ReportAllLessons = ({}) =>{
         const ans = await response.json();
         if(!ans.error){
             setTotalLessons(ans.length);
+            dispatch(setLessons(ans));
         }
     }
     return (

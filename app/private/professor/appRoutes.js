@@ -12,6 +12,8 @@ import NoMatch from '../commons/views/NoMatch';
 import NewLesson from './views/NewLesson';
 import Lesson from './views/Lesson';
 import Reports from './views/Reports';
+import ReportUser from './views/ReportUser';
+import ReportLesson from './views/ReportLesson';
 
 const mapDispatchToProps = dispatch =>({
     _setIsLogged: loginData => dispatch(setIsLogged(loginData)),
@@ -45,6 +47,8 @@ const AppRoutes = ({isLogged, _setIsLogged}) =>{
                 <PrivateRoute exact path="/professor/lessons/add" isLogged={isLogged} component={NewLesson}/>
                 <PrivateRoute exact path="/professor/lessons/:id" isLogged={isLogged} component={Lesson}/>
                 <PrivateRoute exact path="/professor/reports" isLogged={isLogged} component={Reports}/>
+                <PrivateRoute exact path="/professor/reports/user/:id" isLogged={isLogged} component={ReportUser} />
+                <PrivateRoute exact path="/professor/reports/lesson/:id" isLogged={isLogged} component={ReportLesson} />
                 <Route component={NoMatch}/>
             </Switch>
         </Router>

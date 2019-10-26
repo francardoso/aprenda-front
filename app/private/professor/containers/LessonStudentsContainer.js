@@ -4,7 +4,7 @@ import { SERVER_URL } from '../../../../settings';
 
 import { setUsers } from '../actions/users';
 
-import UsersList from '../presentational/UsersList';
+import UsersList from '../presentational/UsersListInput';
 
 const mapStateToProps = state => ({
     users: state.usersReducer.users

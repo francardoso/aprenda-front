@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { PieChart, Pie, Cell,Tooltip, ResponsiveContainer } from 'recharts';
-
 import { SERVER_URL } from '../../../../settings';
+
+import { setUsers } from '../actions/users';
 
 const COLORS = ['#0088FE', '#00C49F'];
 
 const ReportAllStudents = ({ }) => {
+    const dispatch = useDispatch();
     const [totalUsers, setTotalUsers] = useState([
         {
             name: 'Professores',
@@ -42,7 +45,8 @@ const ReportAllStudents = ({ }) => {
                     name: 'Alunos',
                     value: students.length
                 }
-            ])
+            ]);
+            dispatch(setUsers(ans));
         }
     }
     return (

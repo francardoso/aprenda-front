@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
@@ -9,29 +9,29 @@ import { setLessons } from '../../commons/actions/lessons';
 import LessonsList from '../presentational/LessonsList';
 import Button from '../../commons/presentational/Button';
 
-const mapStateToProps = state =>({
+const mapStateToProps = state => ({
     lessons: state.lessonsReducer.lessons,
 });
 
-const mapDispatchToProps = dispatch =>({
+const mapDispatchToProps = dispatch => ({
     _setLessons: lessons => dispatch(setLessons(lessons)),
 });
 
-async function getLessons(_setLessons){
+async function getLessons(_setLessons) {
     const response = await fetch(`${SERVER_URL}/getAllLessons`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        credentials:'include'
+        credentials: 'include'
     });
     const ans = await response.json();
-    if(!ans.error){
+    if (!ans.error) {
         _setLessons(ans);
     }
 };
-function goToAddLesson(history){
+function goToAddLesson(history) {
     history.push('/professor/lessons/add');
 }
 
@@ -39,15 +39,21 @@ const LessonsContainer = ({
     lessons,
     _setLessons,
     history
-}) =>{
-    useEffect(()=>{
+}) => {
+    useEffect(() => {
         getLessons(_setLessons);
-    },[]);
+    }, []);
+    function onSelectLesson(idLesson) {
+        history.push(`/professor/lessons/${idLesson}`);
+    }
     return (
-        <>
-            <Button label='Nova' onClick={() => goToAddLesson(history)}/>
-            <LessonsList lessons={lessons}/>
-        </>
+        <div style={{margin: '10px'}}>
+            <Button label='Nova' onClick={() => goToAddLesson(history)} />
+            <LessonsList
+                lessons={lessons}
+                onSelectLesson={onSelectLesson}
+            />
+        </div>
     )
 };
 
