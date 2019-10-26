@@ -61,7 +61,7 @@ const Input = ({
     disabled = false,
     style,
     value,
-    ...props,
+    ...props
 }) =>{
     let inputElement;
     switch (type) {
