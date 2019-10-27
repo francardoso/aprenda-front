@@ -15,7 +15,6 @@ const Option = ({
     disabled,
     isCorrect,
 })=>{
-    console.log('foo is correct', disabled);
     return(
         <OptionContainer>
             <Input 

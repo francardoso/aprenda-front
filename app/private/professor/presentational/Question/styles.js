@@ -9,6 +9,9 @@ export default styled.div`
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     background-color: #f6fdff;
     margin: 10px 0;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
     .questionTypes{
         display: flex;
         justify-content: center;
@@ -16,6 +19,14 @@ export default styled.div`
         > div{
             margin: 0 30px;
         }
+    }
+    h4{
+        background-color: rgb(33,150,243);
+        border-radius: 7px 7px 10px 10px;
+        text-align: center;
+        color: #FFFFFF;
+        padding: 15px 0;
+        width: 100%;
     }
     > .form-group {
         width: 100%;
