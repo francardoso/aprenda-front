@@ -1,15 +1,20 @@
 import React from 'react';
 
 import HeaderContainer from '../containers/HeaderContainer';
+import ReportUserContainer from '../containers/ReportUserContainer';
 
 import Layout from '../../commons/presentational/Layout';
 
 const ReportUser = ({
-    idUser,
+    match:{
+        params:{
+            id
+        }
+    },
 }) => {
     return (
         <Layout header={<HeaderContainer />}>
-            <p>aqui vão detalhes do aluno</p>
+            <ReportUserContainer idUser={id}/>
         </Layout>
     )
 };

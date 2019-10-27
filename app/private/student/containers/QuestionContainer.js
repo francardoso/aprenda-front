@@ -79,7 +79,6 @@ const QuestionContainer = ({
         }
     }
     function compareAnswer(userAns, realAns) {
-        console.log({userAns, realAns});
         return userAns.sort().join(',') === realAns.sort().join(',');
     }
     function selectAnswers(idx) {
