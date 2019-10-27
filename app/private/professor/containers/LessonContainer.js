@@ -1,32 +1,28 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { SERVER_URL } from '../../../../settings';
 
 import { changeLessonTitle } from '../actions/lesson';
+import { addNotification } from '../../commons/actions/notifications';
 
 import LessonForm from '../presentational/LessonForm';
 
-const mapStateToProps = state =>({
-    title: state.lessonReducer.title,
-    questions: state.lessonReducer.questions
-});
-
-const mapDispatchToProps = dispatch =>({
-    _changeLessonTitle: title => dispatch(changeLessonTitle(title)),
-});
-
 const LessonContainer = ({
     idLesson,
-    title,
-    questions,
-    _changeLessonTitle
 }) =>{
+    const {title, questions} = useSelector(state => state.lessonReducer);
+    const dispatch = useDispatch();
+    const history = useHistory();
     function onSave(){
         if(idLesson){
             editLesson();
         }else{
             addLesson();
         }
+    }
+    function _changeLessonTitle(title){
+        dispatch(changeLessonTitle(title));
     }
     async function addLesson(){
         const response = await fetch(`${SERVER_URL}/addLesson`, {
@@ -41,6 +37,12 @@ const LessonContainer = ({
                 questions
             })
         });
+
+        const ans = await response.json();
+        if(!ans.error){
+            dispatch(addNotification('Atividade adicionada com sucesso!'));
+            history.push('/professor/lessons');
+        }
     }
     async function editLesson(){
         const response = await fetch(`${SERVER_URL}/editLesson`, {
@@ -56,6 +58,11 @@ const LessonContainer = ({
                 questions
             })
         });
+        const ans = await response.json();
+
+        if(!ans.error){
+            dispatch(addNotification('Atividade atualizada!'));
+        }
     }
     return (
         <LessonForm
@@ -66,4 +73,4 @@ const LessonContainer = ({
     )
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(LessonContainer);
+export default LessonContainer;
